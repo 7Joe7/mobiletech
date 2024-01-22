@@ -4,12 +4,12 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.erneker.weather.model.BeerSupplier
+import com.erneker.weather.model.Location
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var recyclerView: RecyclerView
-    private lateinit var adapter: BeerSupplierAdapter
+    private lateinit var adapter: LocationAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -19,14 +19,14 @@ class MainActivity : AppCompatActivity() {
         recyclerView.layoutManager = LinearLayoutManager(this)
 
         val supplierList = generateSupplierData()
-        adapter = BeerSupplierAdapter(supplierList)
+        adapter = LocationAdapter(supplierList)
         recyclerView.adapter = adapter
     }
 
-    private fun generateSupplierData(): List<BeerSupplier> {
-        val suppliers = mutableListOf<BeerSupplier>()
+    private fun generateSupplierData(): List<Location> {
+        val suppliers = mutableListOf<Location>()
         for (i in 1..1000) {
-            suppliers.add(BeerSupplier("Beer Supplier $i", "Description of suplier $i"))
+            suppliers.add(Location("Beer Supplier $i", "Description of suplier $i"))
         }
         return suppliers
     }

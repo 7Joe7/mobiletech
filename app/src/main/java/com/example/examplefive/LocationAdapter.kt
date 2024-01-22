@@ -5,10 +5,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.erneker.weather.model.BeerSupplier
+import com.erneker.weather.model.Location
 
-class BeerSupplierAdapter(private val supplierList: List<BeerSupplier>) :
-    RecyclerView.Adapter<BeerSupplierAdapter.ViewHolder>() {
+class LocationAdapter(private val locationList: List<Location>) :
+    RecyclerView.Adapter<LocationAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context)
@@ -17,13 +17,13 @@ class BeerSupplierAdapter(private val supplierList: List<BeerSupplier>) :
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val supplier = supplierList[position]
+        val supplier = locationList[position]
         holder.supplierNameTextView.text = supplier.name
         holder.supplierDescriptionTextView.text = supplier.description
     }
 
     override fun getItemCount(): Int {
-        return supplierList.size
+        return locationList.size
     }
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
