@@ -29,7 +29,7 @@ class Repository (
         try {
             // call REST API service to response
             val apiResponse = apiService.getLocation(name)
-            // parse SubjectInfoNetwork from response body
+            // parse locationNetworkList from response body
             val locationNetworkList: List<LocationNetwork>? = apiResponse.body()
 
             if (!locationNetworkList.isNullOrEmpty()) {
@@ -49,7 +49,7 @@ class Repository (
             }
         } catch (e: Exception) {
             // Handle PI call errors
-            Log.e("MYAPP", "Error refreshing subjects " + e.localizedMessage)
+            Log.e("MYAPP", "Error refreshing locations " + e.localizedMessage + ", " + e.message + ", " + e.stackTrace)
         }
     }
 }

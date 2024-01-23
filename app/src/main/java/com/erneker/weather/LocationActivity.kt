@@ -33,12 +33,10 @@ class LocationActivity : AppCompatActivity() {
             }
         }
 
-        // Observing change of locationNameMutable property for hiding of Hint text
         viewModel.processToDetail.observe(this) { value ->
-            if (value) {
-                // go to detail activity
+            if (value) { // go to detail activity
                 val intent = Intent(this, DetailActivity::class.java)
-                intent.putExtra("MYDATA", viewModel.locationNameMutable.value)
+                intent.putExtra("LOCATION_NAME", viewModel.locationNameMutable.value)
                 startActivity(intent)
                 viewModel.processToDetail.value = false
             }
