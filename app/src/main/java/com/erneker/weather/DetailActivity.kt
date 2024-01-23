@@ -2,14 +2,8 @@ package com.erneker.weather
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.MenuItem
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.NavController
-import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.setupActionBarWithNavController
 import com.erneker.weather.databinding.ActivityDetailBinding
-import okhttp3.internal.wait
 
 class DetailActivity : AppCompatActivity() {
 
@@ -26,6 +20,9 @@ class DetailActivity : AppCompatActivity() {
         val app = application as MyApplication
         viewModel = ViewModelProvider(this, LocationViewModelFactory(app.repository))[LocationDetailViewModel::class.java]
 
+        binding.viewModel = viewModel
+        binding.lifecycleOwner = this
+
         // Get the passed location name
         val locationName = intent.getStringExtra("LOCATION_NAME").toString()
         viewModel.locationValue.observe(this) { location ->
@@ -39,5 +36,12 @@ class DetailActivity : AppCompatActivity() {
             binding.textVisibility.text = "Visibility: ${location.visibility.toString()}"
         }
         viewModel.getLocation(locationName)
+
+        viewModel.processToHome.observe(this) { value ->
+            if (value) {
+                finish()
+                viewModel.onBackNavigated() // Reset the navigation event
+            }
+        }
     }
 }

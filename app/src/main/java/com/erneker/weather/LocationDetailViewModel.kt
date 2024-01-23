@@ -16,6 +16,7 @@ class LocationDetailViewModel(
 
     private val _locationValue = MutableLiveData<Location>()
     val locationValue: LiveData<Location> = _locationValue
+    val processToHome = MutableLiveData<Boolean>()
 
     fun getLocation(name: String){
         viewModelScope.launch {
@@ -25,5 +26,14 @@ class LocationDetailViewModel(
                 Log.v("MYAPP", "Not found: " + e.message)
             }
         }
+    }
+
+    fun back () {
+        Log.i("INFO", "something")
+        processToHome.value = true
+    }
+
+    fun onBackNavigated() {
+        processToHome.value = false
     }
 }
