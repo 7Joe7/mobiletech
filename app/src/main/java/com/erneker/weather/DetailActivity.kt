@@ -9,12 +9,12 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import com.erneker.weather.databinding.ActivityDetailBinding
+import okhttp3.internal.wait
 
 class DetailActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityDetailBinding
-    private lateinit var viewModel: LocationViewModel
-    private lateinit var navController: NavController
+    private lateinit var viewModel: LocationDetailViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,28 +24,17 @@ class DetailActivity : AppCompatActivity() {
 
         // Initialize ViewModel
         val app = application as MyApplication
-        viewModel = ViewModelProvider(this, LocationViewModelFactory(app.repository))[LocationViewModel::class.java]
+        viewModel = ViewModelProvider(this, LocationViewModelFactory(app.repository))[LocationDetailViewModel::class.java]
 
         // Get the passed location name
-        val locationName = intent.getStringExtra("LOCATION_NAME")
-        binding.textLocation.text = locationName.toString()
-        binding.textLatLon.text = viewModel.locationValue.value?.name.toString()
-
-        // Enable the Up button
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return when (item.itemId) {
-            android.R.id.home -> {
-                onBackPressed()
-                true
-            }
-            else -> super.onOptionsItemSelected(item)
+        val locationName = intent.getStringExtra("LOCATION_NAME").toString()
+        viewModel.locationValue.observe(this) { location ->
+            binding.textLocation.text = location.name + " (" + location.country + ")"
+            binding.textLatLon.text = "Latitude: " +
+                    viewModel.locationValue.value?.lat.toString() +
+                    ", longitude: " +
+                    viewModel.locationValue.value?.lon.toString()
         }
-    }
-
-    override fun onSupportNavigateUp(): Boolean {
-        return navController.navigateUp() || super.onSupportNavigateUp()
+        viewModel.getLocation(locationName)
     }
 }

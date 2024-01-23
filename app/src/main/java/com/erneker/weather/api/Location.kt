@@ -10,12 +10,18 @@ data class LocationNetwork(
     val state: String?
 )
 
-fun LocationNetwork.mapToDatabase(): LocationDTO {
+fun LocationNetwork.mapToDatabase(forecast: Forecast): LocationDTO {
     return LocationDTO(
         name = this.name,
         lat = this.lat,
         lon = this.lon,
         country = this.country,
-        state = this.state
+        state = this.state,
+        temp = forecast.main.temp,
+        pressure = forecast.main.pressure,
+        humidity = forecast.main.humidity,
+        windSpeed = forecast.wind.speed,
+        visibility = forecast.visibility,
+        timestamp = forecast.dt_txt
     )
 }

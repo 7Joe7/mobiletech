@@ -35,9 +35,10 @@ class Repository (
             if (!locationNetworkList.isNullOrEmpty()) {
                 val locationNetwork = locationNetworkList[0] // expect one
 
+                val apiForecastResponse = apiService.getForecast(locationNetwork.lat, locationNetwork.lon).body()
+
                 // convert network model from REST API to DB entity
-                val locationDTO = locationNetwork.mapToDatabase()
-                // find weather forecast for this lat/lon
+                val locationDTO = locationNetwork.mapToDatabase(apiForecastResponse!!.list[0])
 
                 // save to Room database
                 withContext(Dispatchers.IO) {

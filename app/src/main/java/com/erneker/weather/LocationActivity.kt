@@ -16,8 +16,7 @@ class LocationActivity : AppCompatActivity() {
         setContentView(R.layout.activity_location)
 
         binding = ActivityLocationBinding.inflate(layoutInflater)
-        val view = binding.root
-        setContentView(view)
+        setContentView(binding.root)
 
         val app = application as MyApplication
         viewModel = ViewModelProvider(this, LocationViewModelFactory(app.repository))[LocationViewModel::class.java]

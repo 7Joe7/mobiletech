@@ -1,4 +1,29 @@
 package com.erneker.weather
 
-class LocationDetailViewModel {
+import android.util.Log
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.erneker.weather.domain.Location
+import kotlinx.coroutines.flow.firstOrNull
+import kotlinx.coroutines.launch
+
+
+class LocationDetailViewModel(
+    private val repository: Repository
+) : ViewModel() {
+
+    private val _locationValue = MutableLiveData<Location>()
+    val locationValue: LiveData<Location> = _locationValue
+
+    fun getLocation(name: String){
+        viewModelScope.launch {
+            try {
+                _locationValue.value = repository.getLocation(name).firstOrNull()
+            } catch (e: Exception) {
+                Log.v("MYAPP", "Not found: " + e.message)
+            }
+        }
+    }
 }

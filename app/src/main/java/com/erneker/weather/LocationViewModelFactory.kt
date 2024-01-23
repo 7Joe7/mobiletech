@@ -10,6 +10,9 @@ class LocationViewModelFactory(
         if (modelClass.isAssignableFrom(LocationViewModel::class.java)) {
             return LocationViewModel(repository) as T
         }
+        if (modelClass.isAssignableFrom(LocationDetailViewModel::class.java)) {
+            return LocationDetailViewModel(repository) as T
+        }
         throw IllegalArgumentException("Wrong ViewModel class")
     }
 }
