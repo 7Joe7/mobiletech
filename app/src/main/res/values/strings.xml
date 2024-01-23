@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">weather</string>
+    <string name="txtLocation_hint">Location</string>
+    <string name="btnFind_text">Find</string>
+    <string name="txtLocationShortcut_hint">You need to provide location of the weather forecast</string>
+    <string name="location_not_found">Not found</string>
 </resources>
