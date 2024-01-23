@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.lifecycle.ViewModelProvider
 import com.erneker.weather.databinding.ActivityDetailBinding
+import kotlin.math.roundToInt
 
 class DetailActivity : AppCompatActivity() {
 
@@ -29,7 +30,7 @@ class DetailActivity : AppCompatActivity() {
             binding.textLocation.text = "${location.name} (${location.country})"
             binding.textLatLon.text = "Latitude: ${viewModel.locationValue.value?.lat.toString()},  longitude: ${viewModel.locationValue.value?.lon.toString()}"
             binding.textTimestamp.text = "Date: ${location.timestamp}"
-            binding.textTemp.text = "Temperature: ${location.temp.toString()}"
+            binding.textTemp.text = "Temperature: ${location.temp?.roundToInt().toString()}"
             binding.textHumidity.text = "Humidity: ${location.humidity.toString()}"
             binding.textPressure.text = "Pressure: ${location.pressure.toString()}"
             binding.textWindSpeed.text = "Wind Speed: ${location.windSpeed.toString()}"

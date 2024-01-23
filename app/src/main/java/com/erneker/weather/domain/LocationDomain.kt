@@ -1,7 +1,5 @@
 package com.erneker.weather.domain
 
-import com.erneker.weather.database.mapToDomain
-
 data class Location(
     val name: String,
     val lat: Double,
@@ -15,5 +13,3 @@ data class Location(
     val visibility: Int?,
     val timestamp: String?
 )
-
-data class Locations(val locations: List<Location>)

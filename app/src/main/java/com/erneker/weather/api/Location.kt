@@ -17,11 +17,15 @@ fun LocationNetwork.mapToDatabase(forecast: Forecast): LocationDTO {
         lon = this.lon,
         country = this.country,
         state = this.state,
-        temp = forecast.main.temp,
+        temp = kelvinToCelsius(forecast.main.temp),
         pressure = forecast.main.pressure,
         humidity = forecast.main.humidity,
         windSpeed = forecast.wind.speed,
         visibility = forecast.visibility,
         timestamp = forecast.dt_txt
     )
+}
+
+fun kelvinToCelsius(kelvin: Double): Double {
+    return kelvin - 273.15
 }

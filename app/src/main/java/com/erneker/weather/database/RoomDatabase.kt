@@ -47,7 +47,7 @@ fun getDatabase(context: Context): MyRoomDatabase {
             INSTANCE = Room.databaseBuilder(context.applicationContext,
                 MyRoomDatabase::class.java,
                 "my_room_database")
-                .addMigrations(MIGRATION_1_2) // Add this line to add the migration
+                .addMigrations(MIGRATION_1_2)
                 .build()
         }
     }
